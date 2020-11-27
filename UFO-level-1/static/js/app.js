@@ -2,29 +2,45 @@
 var tableData = data;
 
 // YOUR CODE HERE!
+console.log(tableData);
+
 var tbody = d3.select("tbody");
 
-tableData.forEach((ufo) => {
+tableData.forEach(function(ufo) {
+    console.log(ufo);
     var row = tbody.append("tr");
-    Object.entries(ufo).forEach(([key, value]) => row.append("td").text(value));
+    
+    Object.entries(ufo).forEach(function([key, value]) {
+    console.log(key, value);
+    var cell = row.append("td");
+    cell.text(value);
+    });
 });
-
+    
 var button = d3.select("#filter-btn");
-
 button.on("click", function() {
     d3.select("tbody").html("");
     d3.event.preventDefault();
+    
+    var inputElement = d3.select("#datetime"); 
+    var inputValue = inputElement.property("value");
+  
+    console.log(inputValue);
+    console.log(tableData);
+  
+    var filteredData = tableData.filter(criteria => criteria.datetime === inputValue);
+  
+    console.log(filteredData);
 
-var date = d3.select("#datetime").property("value");
-console.log(date);
-
-var newData = tableData.filter(x => x.datetime === date);
-console.log(date);
-
-date.forEach((ufo) => {
-    var row = tbody.append("tr");
-    Object.entries(ufo).forEach(([key, value]) => row.append("td").text(value));
-
+    filteredData.forEach(function(ufo) {
+        console.log(ufo);
+        var row = tbody.append("tr");
+        
+        Object.entries(ufo).forEach(function([key, value]) {
+        console.log(key, value);
+        var cell = row.append("td");
+        cell.text(value);
+        });
+    });     
 });
 
-});
